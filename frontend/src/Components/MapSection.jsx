@@ -104,10 +104,14 @@ const MapSection = () => {
               {/* Map Content */}
               <div className="relative z-10 h-full">
                 <ComposableMap
-                  projection="geoMercator"
-                  width={1100}
-                  height={820}
-                  style={{ width: "100%", height: "100%" }}
+  projection="geoMercator"
+  projectionConfig={{
+    center: [76.5, 19.5],
+    scale: 3500,
+  }}
+  width={1100}
+  height={820}
+  style={{ width: "100%", height: "100%" }}
                 >
                   <Geographies geography={MaharahtraGeo}>
   {({ geographies, projection }) => {
@@ -120,14 +124,7 @@ const MapSection = () => {
       );
     });
 
-    // Fit projection only to Maharashtra
-    projection.fitExtent(
-      [[40, 30], [1060, 790]],
-      {
-        type: "FeatureCollection",
-        features: maharashtraGeographies,
-      }
-    );
+    
 
     return maharashtraGeographies.map((geo, index) => {
 
@@ -230,7 +227,7 @@ const MapSection = () => {
                       {t("maharashtraDistrict")}
                     </p>
                     <h3 className="text-2xl font-bold text-white">
-                      {/* ✅ NEW: Translate the selected panel title too */}
+                     
                       {getTranslatedName(
                         selected.district_name ||
                         selected.NAME_2 ||
