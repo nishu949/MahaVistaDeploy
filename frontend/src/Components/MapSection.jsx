@@ -103,12 +103,16 @@ const MapSection = () => {
 
               {/* Map Content */}
               <div className="relative z-10 h-full">
-              <ComposableMap
+                <ComposableMap
   projection="geoMercator"
+  projectionConfig={{
+    center: [76.5, 19.5],
+    scale: 3500,
+  }}
   width={1100}
   height={820}
   style={{ width: "100%", height: "100%" }}
->
+                >
                   <Geographies geography={MaharahtraGeo}>
   {({ geographies, projection }) => {
 
