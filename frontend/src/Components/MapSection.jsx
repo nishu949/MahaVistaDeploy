@@ -150,7 +150,7 @@ const MapSection = () => {
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.65fr)_360px]">
 
           {/* Left Map Panel */}
-          <div className="rounded-[28px] border border-white/40 bg-[#e8f3ec]/45 px-2 pb-2 pt-0 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-md md:px-3 md:pb-3 md:pt-0">
+          <div className="rounded-[28px] border border-white/40 bg-[#e8f3ec]/45 px-2 pb-2 pt-0 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-md md:px-3 md:pb-3 md:pt-">
 
             <div className="relative h-[620px] overflow-hidden rounded-[24px] md:h-[680px] lg:h-[720px]">
 
