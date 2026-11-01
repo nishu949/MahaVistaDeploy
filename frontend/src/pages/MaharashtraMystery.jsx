@@ -15,7 +15,7 @@ import {
   X,
 } from "lucide-react";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+import { API_URL } from "../api";
 
 export default function MaharashtraMystery() {
   const [mystery, setMystery] = useState(null);
@@ -62,7 +62,7 @@ const IMAGE_ALIASES = {
       setRevealedClues([]);
       setShowStoryModal(false);
 
-      const response = await fetch(`${API_BASE_URL}/api/mysteries/random`);
+      const response = await fetch(`${API_URL}/api/mysteries/random`);
       if (!response.ok) throw new Error("Unable to load mystery.");
       const data = await response.json();
       setMystery(data.mystery);

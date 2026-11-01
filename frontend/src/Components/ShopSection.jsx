@@ -10,7 +10,7 @@ import {
   Heart,
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext"; // ✅ ADDED
-
+import { API_URL } from "../api";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -22,7 +22,7 @@ const ShopSection = () => {
   const { t } = useLanguage(); // ✅ ADDED
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/products")
+    fetch(`${API_URL}/products`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch products");

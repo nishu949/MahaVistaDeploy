@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import SimpleMap from "../Components/SimpleMap";
 
-const API_BASE = "http://127.0.0.1:8000";
+import { API_URL } from "../api";
 
 const preferenceOptions = [
   { label: "Heritage", icon: "🏰" },
@@ -41,7 +41,7 @@ const PlanTripPage = () => {
         setLoading(true);
 
         const res = await fetch(
-          `${API_BASE}/api/cities/${slug}/planner`
+          `${API_URL}/api/cities/${slug}/planner`
         );
 
         if (!res.ok) {

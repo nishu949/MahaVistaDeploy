@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar"
-const API_BASE_URL = "http://127.0.0.1:8000";
+import { API_URL } from "../api";
 
 /* STORIES PAGE */
 
@@ -29,7 +29,7 @@ const StoriesPage = () => {
 
       /* Get available cities */
       const citiesResponse = await fetch(
-        `${API_BASE_URL}/api/stories/cities`
+        `${API_URL}/api/stories/cities`
       );
 
       if (!citiesResponse.ok) {
@@ -50,7 +50,7 @@ const StoriesPage = () => {
       const requests = cities.map(async (city) => {
         try {
           const response = await fetch(
-            `${API_BASE_URL}/api/stories/city/${encodeURIComponent(
+            `${API_URL}/api/stories/city/${encodeURIComponent(
               city
             )}?limit=50`
           );

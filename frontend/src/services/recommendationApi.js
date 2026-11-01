@@ -1,51 +1,52 @@
-const API_BASE_URL = 'http://127.0.0.1:8000';
+
+import { API_URL } from "../api";
 
 export const recommendationApi = {
   // Get personalized recommendations
   getRecommendations: async (preferences) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/recommendations/`, {
+      const response = await fetch(`${API_URL}/api/recommendations/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(preferences),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.detail || 'Failed to get recommendations');
       }
-      
+
       return response.json();
     } catch (error) {
       console.error('Error fetching recommendations:', error);
       throw error;
     }
   },
-  
+
   // Get all destinations
   getDestinations: async (params = {}) => {
     try {
       const queryParams = new URLSearchParams(params).toString();
-      const url = `${API_BASE_URL}/api/destinations/${queryParams ? '?' + queryParams : ''}`;
+      const url = `${API_URL}/api/destinations/${queryParams ? '?' + queryParams : ''}`;
       const response = await fetch(url);
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch destinations');
       }
-      
+
       return response.json();
     } catch (error) {
       console.error('Error fetching destinations:', error);
       throw error;
     }
   },
-  
+
   // Get available months
   getMonths: async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/destinations/months`);
+      const response = await fetch(`${API_URL}/api/destinations/months`);
       if (!response.ok) {
         throw new Error('Failed to fetch months');
       }
@@ -55,11 +56,11 @@ export const recommendationApi = {
       throw error;
     }
   },
-  
+
   // Get categories
   getCategories: async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/destinations/categories`);
+      const response = await fetch(`${API_URL}/api/destinations/categories`);
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }
@@ -69,11 +70,11 @@ export const recommendationApi = {
       throw error;
     }
   },
-  
+
   // Get destination by ID
   getDestinationById: async (id) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/destinations/${id}`);
+      const response = await fetch(`${API_URL}/api/destinations/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch destination');
       }
@@ -83,11 +84,13 @@ export const recommendationApi = {
       throw error;
     }
   },
-  
+
   // Search destinations
   searchDestinations: async (query) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/recommendations/search?q=${encodeURIComponent(query)}`);
+      const response = await fetch(
+        `${API_URL}/api/recommendations/search?q=${encodeURIComponent(query)}`
+      );
       if (!response.ok) {
         throw new Error('Failed to search destinations');
       }

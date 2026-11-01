@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../api";
 const StorytellingModule = ({ city = "Maharashtra" }) => {
   const [featuredStory, setFeaturedStory] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ const StorytellingModule = ({ city = "Maharashtra" }) => {
     try {
       // Fetch featured story
       const response = await fetch(
-        `http://127.0.0.1:8000/api/stories/city/${city}/featured`
+        `${API_URL}/api/stories/city/${city}/featured`
       );
 
       if (response.ok) {
@@ -28,7 +28,7 @@ const StorytellingModule = ({ city = "Maharashtra" }) => {
       } else {
         // If no featured story, fetch all stories and use the first one
         const allStoriesResponse = await fetch(
-          `http://127.0.0.1:8000/api/stories/city/${city}`
+          `${API_URL}/api/stories/city/${city}`
         );
         if (allStoriesResponse.ok) {
           const data = await allStoriesResponse.json();

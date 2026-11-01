@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../api";
 import {
   ChevronRight,
   Menu,
@@ -172,11 +172,11 @@ const interestImages = {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const [monthsRes, categoriesRes] = await Promise.all([
-          fetch("http://127.0.0.1:8000/api/destinations/months"),
-          fetch("http://127.0.0.1:8000/api/destinations/categories"),
-        ]);
+    try {
+  const [monthsRes, categoriesRes] = await Promise.all([
+    fetch(`${API_URL}/api/destinations/months`),
+    fetch(`${API_URL}/api/destinations/categories`),
+  ]);
 
         if (monthsRes.ok) {
           const data = await monthsRes.json();

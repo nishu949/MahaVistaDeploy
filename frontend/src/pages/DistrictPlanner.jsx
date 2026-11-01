@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import { API_URL } from "../api";
 
-const API_BASE = "http://127.0.0.1:8000";
 
 const DistrictPlanner = () => {
   const { slug } = useParams();
@@ -18,7 +18,7 @@ const DistrictPlanner = () => {
         setLoading(true);
         setError("");
 
-        const res = await fetch(`${API_BASE}/api/cities/${slug}/planner`);
+        const res = await fetch(`${API_URL}/api/cities/${slug}/planner`);
 
         if (!res.ok) {
           if (res.status === 404) {
