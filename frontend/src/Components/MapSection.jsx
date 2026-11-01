@@ -91,7 +91,7 @@ const MapSection = () => {
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.65fr)_360px]">
           {/* Left Map Panel */}
           <div className="rounded-[28px] border border-white/40 bg-[#e8f3ec]/45 p-2 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-md md:p-3">
-            <div className="relative h-[580px] overflow-hidden rounded-[24px] md:h-[620px] lg:h-[660px]">
+           <div className="relative h-[620px] overflow-hidden rounded-[24px] md:h-[680px] lg:h-[720px]">
               {/* Texture Background */}
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-40"
@@ -103,16 +103,12 @@ const MapSection = () => {
 
               {/* Map Content */}
               <div className="relative z-10 h-full">
-                <ComposableMap
+              <ComposableMap
   projection="geoMercator"
-  projectionConfig={{
-    center: [76.5, 19.5],
-    scale: 3500,
-  }}
   width={1100}
   height={820}
   style={{ width: "100%", height: "100%" }}
-                >
+>
                   <Geographies geography={MaharahtraGeo}>
   {({ geographies, projection }) => {
 
