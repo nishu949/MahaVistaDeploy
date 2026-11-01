@@ -178,16 +178,14 @@ const MapSection = () => {
                     {({ geographies, projection }) => {
 
                       // Fit Maharashtra districts inside the map
-                      projection.fitExtent(
-                        [[20, 20], [980, 780]],
-                        {
-                          type: "FeatureCollection",
-                          features: geographies,
-                        }
-                      );
-
-                      // Enlarge the actual map by 12%
-                      projection.scale(projection.scale() * 1.12);
+                     projection.fitExtent(
+  [[0, 0], [1100, 820]],
+  {
+    type: "FeatureCollection",
+    features: geographies,
+  }
+);
+                     
 
                       return geographies.map((geo, index) => {
 
