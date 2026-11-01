@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search, MapPin, ShoppingBag } from "lucide-react";
-
+import { API_URL } from "../api";
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -8,7 +8,7 @@ const ShopPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/products")
+    fetch(`${API_URL}/products`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch products");
@@ -16,6 +16,7 @@ const ShopPage = () => {
         return res.json();
       })
       .then((data) => {
+         console.log("Products from API:", data);
         setProducts(data);
         setLoading(false);
       })

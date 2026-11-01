@@ -110,95 +110,100 @@ const MapSection = () => {
                   style={{ width: "100%", height: "100%" }}
                 >
                   <Geographies geography={MaharahtraGeo}>
-                    {({ geographies, projection }) => {
-                      projection.fitExtent(
-                        [[20, 20], [980, 780]],
-                        {
-                          type: "FeatureCollection",
-                          features: geographies,
-                        }
-                      );
+  {({ geographies, projection }) => {
 
-                      return geographies.map((geo, index) => {
-                        if (
-                          geo.properties.st_nm &&
-                          geo.properties.st_nm !== "Maharashtra"
-                        ) {
-                          return null;
-                        }
+    // Keep only Maharashtra districts
+    const maharashtraGeographies = geographies.filter((geo) => {
+      return (
+        !geo.properties.st_nm ||
+        geo.properties.st_nm.trim() === "Maharashtra"
+      );
+    });
 
-                        let districtName =
-                          geo.properties.district_name ||
-                          geo.properties.NAME_2 ||
-                          geo.properties.district ||
-                          geo.properties.DISTRICT ||
-                          "NA";
+    // Fit projection only to Maharashtra
+    projection.fitExtent(
+      [[40, 30], [1060, 790]],
+      {
+        type: "FeatureCollection",
+        features: maharashtraGeographies,
+      }
+    );
 
-                        districtName = districtName.trim();
-                        
-                        // ✅ NEW: Translate the name for display
-                        const displayName = getTranslatedName(districtName);
+    return maharashtraGeographies.map((geo, index) => {
 
-                        const centroid = geoCentroid(geo);
-                        const isHovered = hovered === districtName;
-                        const isSelected =
-                          selected &&
-                          (selected.district_name === districtName ||
-                            selected.NAME_2 === districtName ||
-                            selected.district === districtName ||
-                            selected.DISTRICT === districtName);
+      const districtName =
+        geo.properties.district_name ||
+        geo.properties.NAME_2 ||
+        geo.properties.district ||
+        geo.properties.DISTRICT ||
+        "NA";
 
-                        return (
-                          <g key={geo.rsmKey}>
-                            <Geography
-                              geography={geo}
-                              onClick={() => setSelected(geo.properties)}
-                              onMouseEnter={() => setHovered(districtName)}
-                              onMouseLeave={() => setHovered(null)}
-                              style={{
-                                default: {
-                                  fill: isSelected
-                                    ? "#2E7D32"
-                                    : colors[index % colors.length],
-                                  outline: "none",
-                                  transition: "all 0.25s ease",
-                                },
-                                hover: {
-                                  fill: "#66BB6A",
-                                  cursor: "pointer",
-                                  outline: "none",
-                                },
-                                pressed: {
-                                  fill: "#1B5E20",
-                                  outline: "none",
-                                },
-                              }}
-                              stroke="#ffffff"
-                              strokeWidth={1.5}
-                            />
+      const cleanName = districtName.trim();
+      const displayName = getTranslatedName(cleanName);
 
-                            <Marker coordinates={centroid}>
-                              <text
-                                textAnchor="middle"
-                                dominantBaseline="central"
-                                style={{
-                                  fontSize: isHovered || isSelected ? "14px" : "12px",
-                                  fontWeight: "800",
-                                  fill: isSelected ? "#4d2905" : "#1B1B1B",
-                                  pointerEvents: "none",
-                                  transition: "all 0.2s ease",
-                                  textShadow: "1px 1px 2px rgba(255,255,255,0.9)",
-                                }}
-                              >
-                                {/* ✅ NEW: Use the translated displayName */}
-                                {displayName}
-                              </text>
-                            </Marker>
-                          </g>
-                        );
-                      });
-                    }}
-                  </Geographies>
+      const centroid = geoCentroid(geo);
+
+      const isHovered = hovered === cleanName;
+
+      const isSelected =
+        selected &&
+        (
+          selected.district_name === cleanName ||
+          selected.NAME_2 === cleanName ||
+          selected.district === cleanName ||
+          selected.DISTRICT === cleanName
+        );
+
+      return (
+        <g key={geo.rsmKey}>
+          <Geography
+            geography={geo}
+            onClick={() => setSelected(geo.properties)}
+            onMouseEnter={() => setHovered(cleanName)}
+            onMouseLeave={() => setHovered(null)}
+            style={{
+              default: {
+                fill: isSelected
+                  ? "#2E7D32"
+                  : colors[index % colors.length],
+                outline: "none",
+                transition: "all 0.25s ease",
+              },
+              hover: {
+                fill: "#66BB6A",
+                cursor: "pointer",
+                outline: "none",
+              },
+              pressed: {
+                fill: "#1B5E20",
+                outline: "none",
+              },
+            }}
+            stroke="#ffffff"
+            strokeWidth={1.5}
+          />
+
+          <Marker coordinates={centroid}>
+            <text
+              textAnchor="middle"
+              dominantBaseline="central"
+              style={{
+                fontSize: isHovered || isSelected ? "14px" : "12px",
+                fontWeight: "800",
+                fill: isSelected ? "#4d2905" : "#1B1B1B",
+                pointerEvents: "none",
+                transition: "all 0.2s ease",
+                textShadow: "1px 1px 2px rgba(255,255,255,0.9)",
+              }}
+            >
+              {displayName}
+            </text>
+          </Marker>
+        </g>
+      );
+    });
+  }}
+</Geographies>
                 </ComposableMap>
               </div>
             </div>
