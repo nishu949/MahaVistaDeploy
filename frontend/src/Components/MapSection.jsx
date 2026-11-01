@@ -170,7 +170,7 @@ const MapSection = () => {
                   projection="geoMercator"
                   projectionConfig={{
                     center: [78.5, 19.5],
-                    scale: 5800,
+                    scale: 5600,
                   }}
                   width={1100}
                   height={820}
