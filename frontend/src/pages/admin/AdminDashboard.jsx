@@ -17,14 +17,14 @@ import {
   Activity,
   Sparkles,
   Award,
-  // Compass,  <-- Removed
+  
   Coffee,
   Star,
-  // Crown,    <-- Removed
+ 
   Gem,
 } from "lucide-react";
 
-const API_URL = "http://127.0.0.1:8000";
+import { API_URL } from "../../api";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();

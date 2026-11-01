@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, X, MessageCircle, Minimize2, Maximize2, Sparkles } from 'lucide-react';
+import { API_URL } from "../../api";
 
-const API_URL = "http://127.0.0.1:8000";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);

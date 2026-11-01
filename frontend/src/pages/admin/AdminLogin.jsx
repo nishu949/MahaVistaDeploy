@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, Shield, ArrowLeft, MapPin } from "lucide-react";
 
-const API_URL = "http://127.0.0.1:8000";
-
+import { API_URL } from "../../api";
 const AdminLogin = () => {
   const navigate = useNavigate();
 

@@ -1,0 +1,1 @@
+export const API_URL = "https://mahavista-experiment-api.onrender.com";
