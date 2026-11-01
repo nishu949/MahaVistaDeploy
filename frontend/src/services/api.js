@@ -1,21 +1,21 @@
-// src/services/api.js
-const API_BASE_URL = 'http://127.0.0.1:8000';
+
+import { API_URL } from "../api";
 
 // Helper function for fetch requests
 const fetchAPI = async (endpoint, options = {}) => {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${API_URL}${endpoint}`;
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  
+
   const response = await fetch(url, { ...defaultOptions, ...options });
-  
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  
+
   return response.json();
 };
 
@@ -154,14 +154,14 @@ export const loginUser = async (credentials) => {
   }
 };
 
-export default { 
-  getCities, 
-  getCityBySlug, 
-  getCityPlanner, 
-  getCityPlaces, 
-  getCityCulture, 
-  getCityStays, 
-  getCityTransport, 
+export default {
+  getCities,
+  getCityBySlug,
+  getCityPlanner,
+  getCityPlaces,
+  getCityCulture,
+  getCityStays,
+  getCityTransport,
   submitTripInquiry,
   getProducts,
   getProductsByCategory,

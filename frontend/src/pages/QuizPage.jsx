@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Trophy, Sparkles, CheckCircle, XCircle, Zap, Home, RotateCcw } from "lucide-react";
-
+import { API_URL } from "../api";
 const styles = `
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px) scale(0.95); }
@@ -211,10 +211,9 @@ export default function QuizPage() {
       return;
     }
 
-    fetch(
-  `http://localhost:8000/questions?category=${encodeURIComponent(selectedSubtopic)}`
-
-    )
+   fetch(
+  `${API_URL}/questions?category=${encodeURIComponent(selectedSubtopic)}`
+)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch");
         return res.json();

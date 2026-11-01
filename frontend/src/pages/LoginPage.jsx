@@ -1,7 +1,7 @@
 import { Mail, Lock, User } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../api";
 export default function LoginPage() {
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export default function LoginPage() {
   const handleSubmit = async () => {
     if (isLogin) {
       try {
-        const response = await fetch("http://localhost:8000/login", {
+        const response = await fetch(`${API_URL}/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function LoginPage() {
       }
 
       try {
-        const response = await fetch("http://localhost:8000/register", {
+        const response = await fetch(`${API_URL}/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
