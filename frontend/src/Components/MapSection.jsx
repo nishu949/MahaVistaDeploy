@@ -113,7 +113,7 @@ const MapSection = () => {
   };
 
   return (
-    <section className="relative w-full overflow-hidden rounded-[28px] px-3 pb-3 pt-1 shadow-[0_15px_40px_rgba(21,61,35,0.20)] md:px-4 md:pb-4 md:pt-1">
+    <section className="relative w-full overflow-hidden rounded-[28px] p-3 shadow-[0_15px_40px_rgba(21,61,35,0.20)] md:p-4">
 
       {/* Background Image */}
       <div
@@ -299,7 +299,7 @@ const MapSection = () => {
                     }}
                     className="h-60 w-full rounded-t-[20px] object-cover"/>
 
-                  <div className="absolute inset-0 rounded-t-[20px] bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 rounded-t-[28px] bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
                   <div className="absolute bottom-4 left-4 right-4">
 
