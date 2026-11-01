@@ -17,7 +17,7 @@ load_dotenv(dotenv_path=ENV_PATH)
 MONGO_URI = os.getenv("MONGO_URI")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
 
-print("MONGO_URI =", MONGO_URI[:30] + "..." if MONGO_URI else "Not set")
+
 print("MONGO_DB_NAME =", MONGO_DB_NAME)
 
 if not all([MONGO_URI, MONGO_DB_NAME]):
