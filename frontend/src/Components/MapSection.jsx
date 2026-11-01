@@ -113,7 +113,7 @@ const MapSection = () => {
   };
 
   return (
-    <section className="relative w-full overflow-hidden rounded-[28px] p-3 shadow-[0_15px_40px_rgba(21,61,35,0.20)] md:p-4">
+    <section className="relative w-full overflow-hidden rounded-[28px] p-3 shadow-[0_15px_40px_rgba(21,61,35,0.20)] md:p-0">
 
       {/* Background Image */}
       <div
