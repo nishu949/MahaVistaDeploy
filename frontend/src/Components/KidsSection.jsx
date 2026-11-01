@@ -1,0 +1,451 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Play, Sparkles, Trophy, Users, Clock, Eye, ChevronRight, Star, Flame, LockKeyhole, ArrowRight } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext"; // ✅ ADDED
+
+const KidsSection = () => {
+  const navigate = useNavigate();
+  const { t } = useLanguage(); // ✅ ADDED
+  const [selectedSubtopic, setSelectedSubtopic] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+  const [selectedStory, setSelectedStory] = useState(null);
+
+  const mockFeaturedStory = {
+    title: "Maharashtra: The Land of Culture and Heritage",
+    city: "Maharashtra",
+    category: "Culture",
+    duration: "2 min",
+    description: "Explore the rich cultural heritage of Maharashtra",
+    video_url: "/videos/IntroVideo.mp4",
+    is_featured: true,
+    view_count: 1250,
+    tags: ["culture", "heritage", "education"],
+  };
+
+  const sampleStories = [
+    {
+      id: 1,
+      title: "Ratnagiri",
+      category: "Heritage",
+      duration: "1 min",
+      video_url: "/videos/Ratnagiri.mp4",
+    },
+    {
+      id: 2,
+      title: "Ganesh Festival Celebration",
+      category: "Festivals",
+      duration: "50 sec",
+      video_url: "/videos/PuneGaneshUtsav.mp4",
+    },
+    {
+      id: 4,
+      title: "Maharashtrian Cuisine Journey",
+      category: "Food",
+      duration: "2 min",
+      video_url: "/videos/FoodCulture.mp4",
+    },
+    {
+      id: 3,
+      title: "Mumbai :The City of Joy",
+      category: "culture",
+      duration: "2 min",
+      video_url: "/videos/Mumbai.mp4",
+    },
+  ];
+
+  const featureCards = [
+    { emoji: "🏛️", titleKey: "history", subtitleKey: "mightyForts", color: "from-amber-500 to-orange-600", borderColor: "border-amber-300" },
+    { emoji: "🎭", titleKey: "culture", subtitleKey: "livingArts", color: "from-purple-500 to-pink-600", borderColor: "border-purple-300" },
+    { emoji: "🍛", titleKey: "cuisine", subtitleKey: "flavorSpice", color: "from-red-500 to-rose-600", borderColor: "border-red-300" },
+  ];
+
+  const handleStartQuiz = () => {
+    if (!selectedSubtopic) {
+      alert("Please select a subtopic first");
+      return;
+    }
+    navigate("/quiz", { state: { subtopic: selectedSubtopic } });
+  };
+
+  const handleViewAllStories = () => navigate("/stories");
+
+  return (
+    <div className="w-full bg-[#FBF4E8]">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap');
+        .font-display { font-family: 'Fraunces', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        .warli-strip {
+          height: 14px;
+          background-image: repeating-linear-gradient(
+            to right,
+            #C1502D 0px, #C1502D 6px,
+            transparent 6px, transparent 14px
+          );
+          background-size: 14px 2px;
+          background-repeat: repeat-x;
+          background-position: center;
+        }
+        .arch-frame {
+          border-radius: 160px 160px 16px 16px;
+        }
+        .feature-card-glow {
+          box-shadow: 0 0 30px rgba(193, 80, 45, 0.15);
+        }
+      `}</style>
+
+      <div className="warli-strip" />
+
+      <div className="w-full px-4 md:px-8 lg:px-12 py-8 md:py-12">
+        {/* Section heading */}
+        <div className="flex items-center gap-3 mb-7 md:mb-9">
+          <span className="flex items-center justify-center w-11 h-11 rounded-full bg-[#C1502D] shrink-0">
+            <Star className="w-5 h-5 text-[#FBF4E8] fill-[#FBF4E8]" />
+          </span>
+          <div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#20263F] tracking-tight leading-none">
+              {t("kidsCorner")} {/* ✅ TRANSLATED */}
+            </h2>
+            <p className="font-body text-sm text-[#8A5A3E] mt-1">
+              {t("kidsSub")} {/* ✅ TRANSLATED */}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          {/* ============== LEFT: STORYTELLING ============== */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-[#E9DAC3] shadow-[0_2px_0_#E9DAC3]">
+            {/* Arch-framed video hero */}
+            <div className="relative px-5 pt-5">
+              <div className="arch-frame relative h-[260px] md:h-[300px] overflow-hidden bg-[#20263F]">
+                <video
+                  src={mockFeaturedStory.video_url}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  muted
+                  playsInline
+                  loop
+                  autoPlay
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#20263F]/90 via-[#20263F]/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="font-body text-[#E9A23B] text-xs font-semibold tracking-wide mb-1">
+                    The Sacred City of Faith, Nature & Heritage
+                  </p>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold text-white leading-tight">
+                    {mockFeaturedStory.city}
+                  </h3>
+                </div>
+
+                <button
+                  onClick={() => setSelectedStory(mockFeaturedStory)}
+                  aria-label="Watch story"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/15 border-2 border-white/50 flex items-center justify-center hover:scale-110 hover:bg-white/25 transition-all duration-300"
+                >
+                  <span className="w-11 h-11 rounded-full bg-[#C1502D] flex items-center justify-center">
+                    <Play className="w-4.5 h-4.5 text-white fill-white ml-0.5" />
+                  </span>
+                </button>
+
+                <div className="absolute bottom-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/50 text-white">
+                  <Clock className="w-3 h-3" />
+                  <span className="font-body text-[11px] font-semibold">{mockFeaturedStory.duration}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="px-5 pt-5 flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={() => setSelectedStory(mockFeaturedStory)}
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#C1502D] text-white font-body text-sm font-semibold hover:bg-[#A8431F] transition-colors duration-200"
+              >
+                <Play className="w-4 h-4 fill-white" /> {t("watchStory")} {/* ✅ TRANSLATED */}
+              </button>
+              <button
+                onClick={handleViewAllStories}
+                className="flex-1 px-5 py-3 rounded-xl bg-[#FBF4E8] text-[#20263F] font-body text-sm font-semibold border border-[#E9DAC3] hover:bg-[#F3E5CC] transition-colors duration-200"
+              >
+                {t("viewAll")} {/* ✅ TRANSLATED */}
+              </button>
+            </div>
+
+            {/* Sample stories */}
+            <div className="px-5 pb-5 pt-5 mt-1">
+              <div className="border-t border-[#E9DAC3] pt-4">
+                <h4 className="font-body text-xs font-semibold text-[#8A5A3E] uppercase tracking-wider mb-3">
+                  More stories to explore
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {sampleStories.map((story) => (
+                    <button
+                      key={story.id}
+                      onClick={() => navigate("/stories")}
+                      className="w-full group flex items-center gap-3 bg-[#FBF4E8] hover:bg-[#F3E5CC] rounded-xl p-2.5 border border-transparent hover:border-[#E9A23B] transition-all duration-200 text-left"
+                    >
+                      <div className="relative w-25 h-25 rounded-lg overflow-hidden bg-[#20263F] shrink-0 border border-[#E9DAC3]">
+                        {story.video_url ? (
+                          <video
+                            src={story.video_url}
+                            muted
+                            autoPlay
+                            loop
+                            playsInline
+                            preload="metadata"
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-white flex items-center justify-center text-xl">
+                            {story.thumbnail}
+                          </div>
+                        )}
+
+                        {/* subtle video overlay */}
+                        <div className="absolute inset-0 bg-black/10" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-body text-[13px] font-semibold text-[#20263F] truncate">
+                          {story.title}
+                        </p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="font-body text-[11px] text-[#8A5A3E] flex items-center gap-1">
+                            <Clock className="w-3 h-3" /> {story.duration}
+                          </span>
+                        
+                        </div>
+                      </div>
+                      <span className="w-8 h-8 rounded-full bg-[#C1502D] text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <Play className="w-3 h-3 fill-white ml-0.5" />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ============== RIGHT: QUIZ - IMPROVED FEATURE CARDS ============== */}
+          <div className="bg-gradient-to-br from-[#E8D5C4] to-[#D4BBA5] rounded-2xl p-6 md:p-7 border border-[#C4A88A] shadow-[0_2px_0_#C4A88A]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#C1502D]/15 px-3.5 py-1.5 mb-4 border border-[#C1502D]/20">
+              <Sparkles className="w-3.5 h-3.5 text-[#C1502D]" />
+              <span className="font-body text-xs font-semibold text-[#8A3A1E] tracking-wide">
+                {t("mysticTrail")} {/* ✅ TRANSLATED */}
+              </span>
+            </div>
+
+            <h2 className="font-display text-3xl font-bold text-[#3D2415] leading-tight">
+              {t("cultureQuizTitle")} {/* ✅ TRANSLATED */}
+            </h2>
+            <p className="font-body text-sm leading-relaxed text-[#4D3220] mt-3">
+              {t("cultureQuizDesc")} {/* ✅ TRANSLATED */}
+            </p>
+
+            {/* ========== FEATURE CARDS - LARGER & MORE PROMINENT ========== */}
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              {featureCards.map((item) => {
+                const active = selectedSubtopic === item.titleKey;
+                return (
+                  <button
+                    key={item.titleKey}
+                    onClick={() => setSelectedSubtopic(item.titleKey)}
+                    className={`group relative overflow-hidden rounded-2xl p-4 text-center transition-all duration-300 border-3 shadow-lg ${active
+                      ? `bg-gradient-to-br ${item.color} border-[#C1502D] scale-105 feature-card-glow`
+                      : "bg-white/90 border-[#C4A88A] hover:scale-105 hover:shadow-xl hover:border-[#C1502D]"
+                      }`}
+                  >
+                    {/* Background glow effect on hover */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color} blur-xl`} />
+
+                    <div className="relative z-10">
+                      <div className="text-4xl mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                        {item.emoji}
+                      </div>
+                      <div className={`font-body text-base font-bold transition-colors duration-300 ${active ? "text-white" : "text-[#3D2415] group-hover:text-[#C1502D]"
+                        }`}>
+                        {t(item.titleKey)} {/* ✅ TRANSLATED */}
+                      </div>
+                      <div className={`font-body text-xs font-medium transition-colors duration-300 ${active ? "text-white/80" : "text-[#6B4F3A] group-hover:text-[#8A3A1E]"
+                        }`}>
+                        {t(item.subtitleKey)} {/* ✅ TRANSLATED */}
+                      </div>
+                    </div>
+
+                    {/* Selection indicator - prominent */}
+                    {active && (
+                      <div className="absolute -top-1 -right-1">
+                        <div className="w-6 h-6 rounded-full bg-[#C1502D] border-2 border-white flex items-center justify-center shadow-lg">
+                          <span className="text-[10px] text-white font-bold">✓</span>
+                        </div>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* CTA */}
+            <button
+              onClick={handleStartQuiz}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              className="mt-5 w-full flex items-center justify-center gap-2 rounded-xl bg-[#C1502D] hover:bg-[#A8431F] px-5 py-3.5 font-body font-semibold text-white text-sm transition-colors duration-200 shadow-md hover:shadow-lg"
+            >
+              <Play size={16} className="fill-current" />
+              {selectedSubtopic ? `${t("startQuiz")} ${t(selectedSubtopic)}` : t("beginJourney")} {/* ✅ TRANSLATED */}
+              <ChevronRight size={16} className={`transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`} />
+            </button>
+
+            {/* ========== VISIBLE DOTTED SEPARATOR ========== */}
+            <div className="relative my-8">
+              <div 
+                className="absolute inset-0 flex items-center" 
+                aria-hidden="true"
+              >
+                <div className="w-full border-t-4 border-dotted border-[#8A3A1E]/50"></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="px-3 bg-[#E8D5C4] font-body text-xs font-bold uppercase tracking-wider text-[#8A3A1E]">
+                  Or Play A Game
+                </span>
+              </div>
+            </div>
+
+            {/* ========== MYSTERY GAME CARD (BELOW BUTTON) ========== */}
+            <div className="mt-2 group relative overflow-hidden rounded-2xl border-2 border-[#C4A88A] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
+
+              {/* Two-column layout: content left, image right */}
+              <div className="relative z-10 flex flex-col sm:flex-row gap-5 items-stretch">
+
+                {/* LEFT: content */}
+                <div className="flex-1 flex flex-col min-w-0">
+
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#C4A88A] text-[#965034] text-xs font-bold uppercase tracking-wider mb-2">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        {t("interactiveGame")} {/* ✅ TRANSLATED */}
+                      </div>
+                      <h3 className="font-display text-xl font-bold text-[#3D2415]">
+                        {t("mysteryTitle")} {/* ✅ TRANSLATED */}
+                      </h3>
+                    </div>
+
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C1502D]/10 border border-[#C1502D]/20 shrink-0 sm:hidden">
+                      <LockKeyhole className="h-5 w-5 text-[#C1502D]" />
+                    </div>
+                  </div>
+
+                  {/* Fun stats */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+                      <Trophy className="w-3.5 h-3.5" />
+                      {t("xpPoints")} {/* ✅ TRANSLATED */}
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      {t("clues")} {/* ✅ TRANSLATED */}
+                    </div>
+                  </div>
+
+                  {/* Description — with translucent backdrop */}
+                  <p className="text-sm text-[#72574c] leading-relaxed mb-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/40">
+                    {t("mysteryDesc")} {/* ✅ TRANSLATED */}
+                  </p>
+
+                  {/* CTA pushed to bottom of column */}
+                  <button
+                    onClick={() => navigate("/mystery")}
+                    className="mt-auto w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C1502D] to-[#A8431F] px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
+                  >
+                    {t("playMystery")} {/* ✅ TRANSLATED */}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+
+                {/* RIGHT: image — wider column, full image visible */}
+                <div className="relative w-full sm:w-56 md:w-72 lg:w-80 shrink-0 overflow-hidden rounded-xl border border-[#C4A88A] shadow-sm bg-[#f8eadf]">
+                  <img
+                    src="/images/MystryImage.png"
+                    alt="Maharashtra Mystery"
+                    className="w-full h-48 sm:h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Very subtle gradient for depth (won't obscure image) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2d1a14]/10 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Lock icon badge (desktop only) */}
+                  <div className="hidden sm:flex absolute top-2 right-2 h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm border border-[#E9DAC3]">
+                    <LockKeyhole className="h-4 w-4 text-[#C1502D]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="warli-strip" />
+
+      {selectedStory && <StoryModal story={selectedStory} onClose={() => setSelectedStory(null)} />}
+    </div>
+  );
+};
+
+const StoryModal = ({ story, onClose }) => {
+  const [videoError, setVideoError] = useState(false);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-[#20263F]/70 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start justify-between p-6 border-b border-[#E9DAC3]">
+          <div>
+            <h3 className="font-display text-2xl font-bold text-[#20263F]">{story.title}</h3>
+            <div className="flex flex-wrap gap-3 mt-2 font-body text-sm text-[#8A5A3E]">
+              <span>{story.city}</span>
+              <span>•</span>
+              <span>{story.category}</span>
+              <span>•</span>
+              <span>{story.duration}</span>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="w-9 h-9 rounded-full bg-[#FBF4E8] hover:bg-[#F3E5CC] text-[#20263F] transition-colors shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="p-6">
+          <div className="aspect-video bg-[#20263F] rounded-xl overflow-hidden">
+            {videoError || !story.video_url ? (
+              <div className="w-full h-full flex flex-col items-center justify-center text-white/60 font-body text-sm">
+                Video unavailable
+              </div>
+            ) : (
+              <video
+                src={story.video_url}
+                controls
+                autoPlay
+                className="w-full h-full object-contain"
+                onError={() => setVideoError(true)}
+              />
+            )}
+          </div>
+          <p className="mt-5 font-body text-[#4A3B2C] leading-relaxed">{story.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default KidsSection;
